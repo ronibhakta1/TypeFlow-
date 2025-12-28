@@ -16,8 +16,9 @@ const Dashboard: React.FC<DashboardProps> = ({ history, onClose }) => {
     const counts: Record<string, number> = {};
     history.forEach(res => {
       if (res.missedChars) {
+        // Fix: Explicitly cast count to number as Object.entries value can be inferred as unknown in some environments
         Object.entries(res.missedChars).forEach(([char, count]) => {
-          counts[char] = (counts[char] || 0) + count;
+          counts[char] = (counts[char] || 0) + (count as number);
         });
       }
     });
